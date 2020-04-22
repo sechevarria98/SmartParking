@@ -196,22 +196,5 @@ public class Member extends JFrame {
 		 * 
 		 */
 		
-		/*
-		 * CREATE TABLE LOT_A(ID integer PRIMARY KEY, name varchar(100), data varcahr(100));
-		 * 
-		 * INSERT INTO LOT_A(ID, name, date) VALUES('1', 'Sam', CURRENT_TIMESTAMP);
-		 */
-		
-		/*
-		 * CREATE TABLE teams
-   (
-      id SERIAL UNIQUE, 
-      name VARCHAR(90)
-   );
- 
-   -- Insert a row, ID will be automatically generated
-   INSERT INTO teams (name) VALUES ('Tottenham Hotspur');
-		 */
-		
 	}
 }
