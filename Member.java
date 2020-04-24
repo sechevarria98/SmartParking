@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JMenu;
@@ -21,6 +22,11 @@ import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseMotionAdapter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.awt.Cursor;
 
 public class Member extends JFrame {
@@ -43,6 +49,12 @@ public class Member extends JFrame {
 			}
 		});
 	}
+	
+	Login log = new Login();
+	String user = log.user;
+	String password = log.password;
+	String url = log.url;
+	String userName = log.userName;
 	
 	public Member() {
 		
@@ -98,14 +110,37 @@ public class Member extends JFrame {
 		JLabel lbl_usr = new JLabel("Username:");
 		lbl_usr.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
 		lbl_usr.setForeground(Color.WHITE);
-		lbl_usr.setBounds(321, 11, 66, 14);
+		lbl_usr.setBounds(343, 11, 66, 14);
 		panel.add(lbl_usr);
 		
-		JLabel usrn_lbl = new JLabel("Samuel Echevarria");
+		JLabel usrn_lbl = new JLabel(userName);
 		usrn_lbl.setForeground(Color.WHITE);
 		usrn_lbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		usrn_lbl.setBounds(385, 12, 125, 14);
+		usrn_lbl.setBounds(405, 11, 105, 14);
 		panel.add(usrn_lbl);
+		
+		JLabel lblName = new JLabel("Name:");
+		lblName.setFont(new Font("Segoe UI Historic", Font.PLAIN, 14));
+		lblName.setBounds(111, 88, 54, 20);
+		Welcome.add(lblName);
+		
+		JLabel name = new JLabel("");
+		name.setFont(new Font("Segoe UI Historic", Font.PLAIN, 14));
+		name.setBounds(175, 88, 115, 20);
+		Welcome.add(name);
+		
+		try (Connection conn = DriverManager.getConnection(url, user, password)) {
+			
+			String query = "SELECT * FROM member WHERE username = '" + userName + "'";
+			Statement s = conn.createStatement();
+			ResultSet r = s.executeQuery(query);
+			while(r.next()) {
+				name.setText(r.getString("name"));
+			}
+			
+		}catch (SQLException ev) {
+			System.out.println(ev.getMessage());
+		}
 		
 		JLabel lblNewLabel = new JLabel("Vehicle Details:");
 		lblNewLabel.setFont(new Font("DialogInput", Font.PLAIN, 12));

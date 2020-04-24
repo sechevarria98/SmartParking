@@ -40,6 +40,7 @@ public class Login extends JFrame {
 	static String url = "jdbc:postgresql://localhost/Temporary";
 	static String user = "postgres";
 	static String password = "abc123";
+	static String userName = "";
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -178,6 +179,9 @@ public class Login extends JFrame {
 						Statement st = conn.createStatement();
 						st.execute(query_1);
 						
+						name.setText("");
+						createUserN.setText("");
+						createPass.setText("");
 						JOptionPane.showMessageDialog(null, "Account created successfully");
 					}
 					
@@ -196,7 +200,8 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try (Connection conn = DriverManager.getConnection(url, user, password)) {
 					
-					String query = "SELECT * FROM member WHERE username = '" + usr.getText() + "'";
+					userName = usr.getText();
+					String query = "SELECT * FROM member WHERE username = '" + userName + "'";
 					String uPass = pass.getText();
 					Statement s = conn.createStatement();
 					ResultSet r = s.executeQuery(query);
@@ -229,4 +234,5 @@ public class Login extends JFrame {
 		 */
 	}
 }
+
 
