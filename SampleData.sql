@@ -14,7 +14,7 @@ insert into Customer (id, credit_card, payment_address, license_number) values (
 insert into Customer (id, credit_card, payment_address, license_number) values (( Select userLogin.id From userLogin Where name = 'Sam'), 1234567565664562, '789 Main Street','sam1');
 
 -- Sample Data for Member
-Insert Into Member(id) Values(( Select userLogin.id From userLogin Where name = 'Sam'))
+Insert Into Member(id) Values(( Select userLogin.id From userLogin Where name = 'Sam'));
 
 --Data for ParkingLot:
 insert into ParkingLotA values(2, 'Reserved', 'guest', 'Apr 28, 2020', 1, 30);

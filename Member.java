@@ -69,9 +69,10 @@ public class Member extends JFrame {
 	}
 	
 	Login log = new Login();
-	String url = log.url;
-	String user = log.user;
-	String password = log.password;
+	DBLogin lg = new DBLogin();
+	String url = lg.url;
+	String user = lg.user;
+	String password = lg.password;
 	String userName = log.userName;
 	
 	public Member() {
@@ -451,30 +452,6 @@ public class Member extends JFrame {
 		RP_Min.setColumns(10);
 		RP_Min.setBounds(299, 287, 45, 20);
 		ReserveParking.add(RP_Min);
-		
-		try (Connection conn = DriverManager.getConnection(url, user, password)) {
-			
-			String query = 	"SELECT * FROM customer,  userLogin\r\n" + 
-							"WHERE userLogin.id = customer.id\r\n" + 
-							"AND username = '" + userName + "'";
-			Statement s = conn.createStatement();
-			ResultSet r = s.executeQuery(query);
-			while(r.next()) {
-				String cc = r.getString("credit_card");
-				String cc_1 = "";
-				if (cc.length() > 4) {
-					cc_1 = cc.substring(cc.length() - 4);
-				}
-				else {
-					cc_1 = cc;
-				}
-				RP_PaymentMethods.addItem("Visa ending in " + cc_1);
-				RP_Licenseplate.addItem(r.getString("license_number"));
-			}
-			
-		}catch (SQLException ev) {
-			System.out.println(ev.getMessage());
-		}
 		
 		JButton RP_ReserveBtn = new JButton("Reserve");
 		RP_ReserveBtn.addActionListener(new ActionListener() {
@@ -902,7 +879,7 @@ public class Member extends JFrame {
 		/*
 		 * END
 		 */
-		
+		String mem = "";
 		try (Connection conn = DriverManager.getConnection(url, user, password)) {
 			
 			String query = "Select * from userlogin, customer\r\n" + 
@@ -911,6 +888,8 @@ public class Member extends JFrame {
 			Statement s = conn.createStatement();
 			ResultSet r = s.executeQuery(query);
 			while(r.next()) {
+				
+				mem = r.getString("mem_type");
 				ID.setText(r.getString("id"));
 				name.setText(r.getString("name"));
 				Memberlbl.setText(r.getString("mem_type"));
@@ -922,6 +901,59 @@ public class Member extends JFrame {
 		}catch (SQLException ev) {
 			System.out.println(ev.getMessage());
 		}		
+		
+		try (Connection conn = DriverManager.getConnection(url, user, password)) {
+			
+			String query = "";
+			if(mem.equals("Member")) {
+				query = 	"SELECT * FROM customer,  userLogin, member\r\n" + 
+						"WHERE userLogin.id = customer.id\r\n" + 
+						"AND userLogin.id = member.id\r\n" +
+						"AND username = '" + userName + "'";
+				
+				Statement s = conn.createStatement();
+				ResultSet r = s.executeQuery(query);
+				while(r.next()) {
+					String cc = r.getString("credit_card");
+					String cc_1 = "";
+					if (cc.length() > 4) {
+						cc_1 = cc.substring(cc.length() - 4);
+					}
+					else {
+						cc_1 = cc;
+					}
+					RP_PaymentMethods.addItem("Visa ending in " + cc_1);
+					RP_Licenseplate.addItem(r.getString("license_number"));
+					RP_Licenseplate.addItem(r.getString("tempplate1"));
+					RP_Licenseplate.addItem(r.getString("tempplate2"));
+				}
+			}
+			else {
+				query = 	"SELECT * FROM customer,  userLogin\r\n" + 
+						"WHERE userLogin.id = customer.id\r\n" + 
+						"AND username = '" + userName + "'";
+				
+				Statement s = conn.createStatement();
+				ResultSet r = s.executeQuery(query);
+				while(r.next()) {
+					String cc = r.getString("credit_card");
+					String cc_1 = "";
+					if (cc.length() > 4) {
+						cc_1 = cc.substring(cc.length() - 4);
+					}
+					else {
+						cc_1 = cc;
+					}
+					RP_PaymentMethods.addItem("Visa ending in " + cc_1);
+					RP_Licenseplate.addItem(r.getString("license_number"));
+				}
+			}
+			
+				
+		}catch (SQLException ev) {
+			System.out.println(ev.getMessage());
+		}
+		
 		
 		/*
 		 * Un-important Labels

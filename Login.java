@@ -36,9 +36,11 @@ public class Login extends JFrame {
 	private JPasswordField pass;
 	private JPasswordField createPass;
 
-	static String url = "jdbc:postgresql://localhost/Tmp";
-	static String user = "postgres";
-	static String password = "abc123";
+	
+	DBLogin lg = new DBLogin();
+	String url = lg.url;
+	String user = lg.user;
+	String password = lg.password;
 	static String userName = "";
 	static String cUserName = "";
 
@@ -240,6 +242,7 @@ public class Login extends JFrame {
 		 */
 	}
 }
+
 
 
 

@@ -40,9 +40,10 @@ public class PostLogin extends JFrame {
 	}
 
 	Login log = new Login();
-	String url = log.url;
-	String user = log.user;
-	String password = log.password;
+	DBLogin lg = new DBLogin();
+	String url = lg.url;
+	String user = lg.user;
+	String password = lg.password;
 	String userName = log.userName;
 	String cUserName = log.cUserName;
 	
