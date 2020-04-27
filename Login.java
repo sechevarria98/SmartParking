@@ -35,12 +35,12 @@ public class Login extends JFrame {
 	private JLabel lblPass;
 	private JPasswordField pass;
 	private JPasswordField createPass;
-	
-	
-	static String url = "jdbc:postgresql://localhost/Temporary";
+
+	static String url = "jdbc:postgresql://localhost/Tmp";
 	static String user = "postgres";
 	static String password = "abc123";
 	static String userName = "";
+	static String cUserName = "";
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -166,7 +166,8 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try (Connection conn = DriverManager.getConnection(url, user, password)) {
 					
-					String query = "SELECT * FROM member WHERE username = '" + createUserN.getText() + "'";
+					cUserName = createUserN.getText();
+					String query = "SELECT * FROM userLogin WHERE username = '" + createUserN.getText() + "'";
 					
 					Statement s = conn.createStatement();
 					ResultSet r = s.executeQuery(query);
@@ -175,14 +176,17 @@ public class Login extends JFrame {
 						JOptionPane.showMessageDialog(null, "User name already taken");
 					}
 					else {
-						String query_1 = "INSERT INTO member(name, username, password, mem_type) VALUES( '" + name.getText() + "','" + createUserN.getText() + "', '" + createPass.getText() + "', 'member');";
+						String query_1 = "INSERT INTO userLogin(name, username, password) VALUES( '" + name.getText() + "','" + createUserN.getText() + "', '" + createPass.getText() + "'" + ");";
 						Statement st = conn.createStatement();
 						st.execute(query_1);
 						
 						name.setText("");
 						createUserN.setText("");
 						createPass.setText("");
-						JOptionPane.showMessageDialog(null, "Account created successfully");
+						
+						PostLogin lg = new PostLogin();
+						lg.setVisible(true);
+						dispose();
 					}
 					
 				}catch (SQLException ev) {
@@ -201,21 +205,23 @@ public class Login extends JFrame {
 				try (Connection conn = DriverManager.getConnection(url, user, password)) {
 					
 					userName = usr.getText();
-					String query = "SELECT * FROM member WHERE username = '" + userName + "'";
+					String query = "SELECT * FROM userLogin WHERE username = '" + userName + "'";
 					String uPass = pass.getText();
 					Statement s = conn.createStatement();
 					ResultSet r = s.executeQuery(query);
 					
-					
-					while (r.next()) {
+					if(r.next()) {
 						if (uPass.equals(r.getString("password"))) {
 							Member mem = new Member();
 							mem.setVisible(true);
 							dispose();
 						}
 						else {
-							JOptionPane.showMessageDialog(null, "Username or password is incorrect");
+							JOptionPane.showMessageDialog(null, "Password is incorrect");
 						}
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Username is incorrect");
 					}
 				}catch (SQLException ev) {
 					System.out.println(ev.getMessage());
@@ -234,5 +240,9 @@ public class Login extends JFrame {
 		 */
 	}
 }
+
+
+
+
 
 
