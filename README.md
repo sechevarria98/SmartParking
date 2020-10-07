@@ -1,2 +1,3 @@
 # SmartParking
- Project
+ Software Engineering Project
+ Spring 2019
