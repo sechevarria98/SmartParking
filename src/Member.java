@@ -30,7 +30,6 @@ import java.sql.Statement;
 import java.awt.Cursor;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
-
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JYearChooser;
 import com.toedter.calendar.JDayChooser;

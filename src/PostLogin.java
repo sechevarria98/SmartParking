@@ -19,12 +19,31 @@ import java.sql.Statement;
 import java.awt.event.ActionEvent;
 
 public class PostLogin extends JFrame {
-
+	
+	// panels
 	private JPanel contentPane;
+
+	// text fields
 	private JTextField CreditCard;
 	private JTextField PaymentAddress;
 	private JTextField LicensePlateNumber;
 
+	// labels
+	private JLabel miscLabel
+	private JLabel cardLabel
+	private JLabel paymentaddressLabel
+	private JLabel licensenumberLabel
+
+	// buttons
+	private JButton contiueButton
+	
+	private Login log = new Login();
+	private DBLogin lg = new DBLogin();
+	private String url = lg.url;
+	private String user = lg.user;
+	private String password = lg.password;
+	private String userName = log.userName;
+	private String currentUser = log.currentUser;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -38,14 +57,6 @@ public class PostLogin extends JFrame {
 			}
 		});
 	}
-
-	Login log = new Login();
-	DBLogin lg = new DBLogin();
-	String url = lg.url;
-	String user = lg.user;
-	String password = lg.password;
-	String userName = log.userName;
-	String cUserName = log.cUserName;
 	
 	public PostLogin() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,11 +67,32 @@ public class PostLogin extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Just A Few More Steps . . .");
-		lblNewLabel.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(169, 26, 342, 61);
-		contentPane.add(lblNewLabel);
+		//======================== LABELS ========================//
+
+		miscLabel = new JLabel("Just A Few More Steps . . .");
+		miscLabel.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		miscLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		miscLabel.setBounds(169, 26, 342, 61);
+		contentPane.add(miscLabel);
+
+		cardLabel = new JLabel("Enter Credit/Debit Card Number");
+		cardLabel.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		cardLabel.setBounds(79, 137, 183, 21);
+		contentPane.add(cardLabel);
+
+		paymentaddressLabel = new JLabel("Enter Payment Address");
+		paymentaddressLabel.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		paymentaddressLabel.setBounds(79, 208, 183, 21);
+		contentPane.add(paymentaddressLabel);
+		
+		licensenumberLabel = new JLabel("Enter License Plate Number");
+		licensenumberLabel.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		licensenumberLabel.setBounds(79, 271, 183, 21);
+		contentPane.add(licensenumberLabel);
+
+		//======================== END ========================//
+
+		//======================== Text Fields ========================//
 		
 		CreditCard = new JTextField();
 		CreditCard.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
@@ -68,11 +100,6 @@ public class PostLogin extends JFrame {
 		CreditCard.setBounds(79, 169, 303, 20);
 		contentPane.add(CreditCard);
 		CreditCard.setColumns(10);
-		
-		JLabel lblNewLabel_1 = new JLabel("Enter Credit/Debit Card Number");
-		lblNewLabel_1.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		lblNewLabel_1.setBounds(79, 137, 183, 21);
-		contentPane.add(lblNewLabel_1);
 		
 		PaymentAddress = new JTextField();
 		PaymentAddress.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
@@ -87,50 +114,49 @@ public class PostLogin extends JFrame {
 		LicensePlateNumber.setBounds(79, 304, 162, 20);
 		contentPane.add(LicensePlateNumber);
 		LicensePlateNumber.setColumns(10);
+
+		//======================== END ========================//
+
+		//======================== Buttons ========================//
 		
-		JLabel lblEnterPaymentAddress = new JLabel("Enter Payment Address");
-		lblEnterPaymentAddress.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		lblEnterPaymentAddress.setBounds(79, 208, 183, 21);
-		contentPane.add(lblEnterPaymentAddress);
-		
-		JLabel lblEnterLicensePlate = new JLabel("Enter License Plate Number");
-		lblEnterLicensePlate.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		lblEnterLicensePlate.setBounds(79, 271, 183, 21);
-		contentPane.add(lblEnterLicensePlate);
-		
-		JButton btnNewButton = new JButton("Next");
-		btnNewButton.addActionListener(new ActionListener() {
+		contiueButton = new JButton("Next");
+		contiueButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try (Connection conn = DriverManager.getConnection(url, user, password)) {
-					
-					String query = "Select * From userLogin WHERE username = '" + cUserName + "'" ;
-					
-					Statement s = conn.createStatement();
-					ResultSet r = s.executeQuery(query);
-					
-					while (r.next()) {
-						int id = r.getInt("id");
-						String query_1 = "INSERT INTO customer (id, credit_card, payment_address, license_number) values (" + id + ", " + CreditCard.getText() + ", '" + PaymentAddress.getText() + "', '" + LicensePlateNumber.getText() + "');\r\n" + "";
-						Statement st = conn.createStatement();
-						st.execute(query_1);
-					}					
-					
-					JOptionPane.showMessageDialog(null, "Account Created Successfully");
-					
-					Login log = new Login();
-					log.setVisible(true);
-					dispose();
-					
-					
-				}catch (SQLException ev) {
-					System.out.println(ev.getMessage());
-				}
+				String credit_card = CreditCard.getText();
+				String payment_address = PaymentAddress.getText();
+				String license_number = LicensePlateNumber.getText();
+				onContinue(credit_card, payment_address, license_number);
 			}
 		});
-		btnNewButton.setBackground(Color.WHITE);
-		btnNewButton.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
-		btnNewButton.setBounds(534, 271, 89, 57);
-		contentPane.add(btnNewButton);
+		contiueButton.setBackground(Color.WHITE);
+		contiueButton.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
+		contiueButton.setBounds(534, 271, 89, 57);
+		contentPane.add(contiueButton);
+
+		//======================== END ========================//
+	}
+
+	private void onContinue(String temp_cc, String temp_pp, String temp_lp) {
+		try (Connection conn = DriverManager.getConnection(url, user, password)) {
+					
+			String find_query = "Select * From userLogin WHERE username = '" + currentUser + "'" ;
+			Statement s = conn.createStatement();
+			ResultSet r = s.executeQuery(find_query);
+			
+			while (r.next()) {
+				int id = r.getInt("id");
+				String insert_query = "INSERT INTO customer (id, credit_card, payment_address, license_number) values (" + id + ", " + temp_cc + ", '" + temp_pp + "', '" + temp_lp + "');\r\n" + "";
+				Statement st = conn.createStatement();
+				st.execute(insert_query);
+			}					
+			JOptionPane.showMessageDialog(null, "Account Created Successfully");
+			Login log = new Login();
+			log.setVisible(true);
+			dispose();
+
+		}catch (SQLException ev) {
+			System.out.println(ev.getMessage());
+		}
 	}
 
 }
