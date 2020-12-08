@@ -995,10 +995,12 @@ public class Member extends JFrame {
 		RegisterVehicle.add(btnRegister);
 		
 		//======================== END ========================//
+		
+	}
 
-		//======================== ON CREATE INFORMATION ========================//
-
-		String mem = "";
+	private void onCreateProcess() 
+	{
+		String membership_type = null;
 		try (Connection conn = DriverManager.getConnection(url, user, password)) {
 			
 			String query = "Select * from userlogin, customer\r\n" + 
@@ -1008,7 +1010,7 @@ public class Member extends JFrame {
 			ResultSet r = s.executeQuery(query);
 			while(r.next()) {
 				
-				mem = r.getString("mem_type");
+				membership_type = r.getString("mem_type");
 				ID.setText(r.getString("id"));
 				name.setText(r.getString("name"));
 				Memberlbl.setText(r.getString("mem_type"));
@@ -1017,14 +1019,19 @@ public class Member extends JFrame {
 				Pm_ChooseCC.addItem(r.getLong("credit_card"));
 			}
 			
-		}catch (SQLException ev) {
-			System.out.println(ev.getMessage());
+		}catch (SQLException e) {
+
+
+			System.out.println(e.getMessage());
 		}		
-		
+	}
+
+	private void differentiateMembership()
+	{
 		try (Connection conn = DriverManager.getConnection(url, user, password)) {
 			
 			String query = "";
-			if(mem.equals("Member")) {
+			if(membership_type.equals("Member")) {
 				query = 	"SELECT * FROM customer,  userLogin, member\r\n" + 
 						"WHERE userLogin.id = customer.id\r\n" + 
 						"AND userLogin.id = member.id\r\n" +
@@ -1071,8 +1078,5 @@ public class Member extends JFrame {
 		}catch (SQLException ev) {
 			System.out.println(ev.getMessage());
 		}
-
-		//======================== END ========================//
-		
 	}
 }

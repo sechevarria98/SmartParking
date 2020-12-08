@@ -125,7 +125,13 @@ public class PostLogin extends JFrame {
 				String credit_card = CreditCard.getText();
 				String payment_address = PaymentAddress.getText();
 				String license_number = LicensePlateNumber.getText();
-				onContinue(credit_card, payment_address, license_number);
+
+				if (temp_cc.length() < 15) {
+					JOptionPane.showMessageDialog(null, "credit card length invalid");
+					CreditCard.requestFocus();
+				} else {
+					onContinue(credit_card, payment_address, license_number);
+				}
 			}
 		});
 		contiueButton.setBackground(Color.WHITE);
