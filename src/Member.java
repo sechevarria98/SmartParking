@@ -91,10 +91,7 @@ public class Member extends JFrame {
 		contentPane.add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		
-		
-		/*
-		 * Panels
-		 */
+		//======================== PANELS ========================//
 		
 		Welcome = new JPanel();
 		Welcome.setBackground(Color.WHITE);
@@ -174,13 +171,9 @@ public class Member extends JFrame {
 		deleteCard.add(PM_DeletePanel);
 		
 		
-		/*
-		 * END
-		 */
+		//======================== END ========================//
 		
-		/*
-		 * Home
-		 */
+		//======================== HOME ========================//
 		
 		JLabel name = new JLabel("");
 		name.setFont(new Font("Segoe UI Historic", Font.PLAIN, 14));
@@ -192,15 +185,10 @@ public class Member extends JFrame {
 		ID.setBounds(145, 88, 115, 20);
 		Welcome.add(ID);
 		
-		
-		/*
-		 * END
-		 */
+		//======================== END ========================//
 		
 		
-		/*
-		 * Important Labels
-		 */
+		//======================== IMPORTANT LABLES ========================//
 	
 		JLabel UserNamelbl = new JLabel(userName);
 		UserNamelbl.setForeground(Color.WHITE);
@@ -256,14 +244,159 @@ public class Member extends JFrame {
 		addresslbl.setBounds(145, 230, 151, 25);
 		Welcome.add(addresslbl);
 		
-		/*
-		 * END
-		 */
+		//======================== END ========================//
+
+		//======================== MISC. LABELS ========================//
 		
+		JLabel RP_VehicleDetailslbl = new JLabel("License Plate");
+		RP_VehicleDetailslbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		RP_VehicleDetailslbl.setBounds(10, 51, 129, 28);
+		ReserveParking.add(RP_VehicleDetailslbl);
 		
-		/*
-		 * Navigation Bar Start
-		 */
+		JLabel RP_Paymentlbl = new JLabel("Select Payment Method");
+		RP_Paymentlbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		RP_Paymentlbl.setBounds(10, 123, 189, 28);
+		ReserveParking.add(RP_Paymentlbl);
+		
+		JLabel RP_Lotlbl = new JLabel("Lot");
+		RP_Lotlbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		RP_Lotlbl.setBounds(10, 185, 189, 28);
+		ReserveParking.add(RP_Lotlbl);
+		
+		JLabel RP_Datelbl = new JLabel("Date");
+		RP_Datelbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		RP_Datelbl.setBounds(10, 248, 189, 28);
+		ReserveParking.add(RP_Datelbl);
+		
+		JLabel RP_AmountTimelbl = new JLabel("Amount of Time");
+		RP_AmountTimelbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		RP_AmountTimelbl.setBounds(222, 248, 189, 28);
+		ReserveParking.add(RP_AmountTimelbl);
+		
+		JLabel RP_hrlbl = new JLabel("hrs");
+		RP_hrlbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		RP_hrlbl.setBounds(270, 282, 24, 28);
+		ReserveParking.add(RP_hrlbl);
+		
+		JLabel RP_Minlbl = new JLabel("min");
+		RP_Minlbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		RP_Minlbl.setBounds(350, 282, 24, 28);
+		ReserveParking.add(RP_Minlbl);
+		
+		JLabel Pm_SelectCC = new JLabel("Select Credit/Debit Card");
+		Pm_SelectCC.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		Pm_SelectCC.setBounds(23, 155, 189, 28);
+		editCard.add(Pm_SelectCC);
+		
+		JLabel Pm_editCC = new JLabel("Credit/Debit Card Number");
+		Pm_editCC.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		Pm_editCC.setBounds(23, 236, 189, 28);
+		editCard.add(Pm_editCC);
+		
+		JLabel label_9 = new JLabel("Username:");
+		label_9.setForeground(Color.WHITE);
+		label_9.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		label_9.setBounds(10, 11, 66, 14);
+		Pm_SavePanel.add(label_9);
+		
+		JLabel Pm_CClbl = new JLabel("New Credit/Debit Card Number");
+		Pm_CClbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		Pm_CClbl.setBounds(62, 129, 200, 28);
+		addCard.add(Pm_CClbl);
+		
+		JLabel Pm_Palbl = new JLabel("Payment Address");
+		Pm_Palbl.setHorizontalAlignment(SwingConstants.LEFT);
+		Pm_Palbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		Pm_Palbl.setBounds(62, 199, 200, 28);
+		addCard.add(Pm_Palbl);
+		
+		JLabel label_1 = new JLabel("Username:");
+		label_1.setForeground(Color.WHITE);
+		label_1.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		label_1.setBounds(10, 11, 66, 14);
+		Pm_AddPanel.add(label_1);
+		
+		JLabel Pm_delCC = new JLabel("Select Credit/Debit Card Number");
+		Pm_delCC.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		Pm_delCC.setBounds(38, 139, 189, 28);
+		deleteCard.add(Pm_delCC);
+		
+		JLabel RV_LPNlbl = new JLabel("License Plate Number");
+		RV_LPNlbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		RV_LPNlbl.setBounds(116, 139, 189, 28);
+		RegisterVehicle.add(RV_LPNlbl);
+		
+		JLabel lbl_usr = new JLabel("Username:");
+		lbl_usr.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		lbl_usr.setForeground(Color.WHITE);
+		lbl_usr.setBounds(10, 11, 66, 14);
+		panel.add(lbl_usr);
+		
+		JLabel lblName = new JLabel("Name");
+		lblName.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 14));
+		lblName.setBounds(50, 130, 54, 20);
+		Welcome.add(lblName);
+		
+		JLabel lblId = new JLabel("ID");
+		lblId.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 14));
+		lblId.setBounds(50, 88, 54, 20);
+		Welcome.add(lblId);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(39, 117, 283, 2);
+		Welcome.add(separator);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(39, 161, 283, 2);
+		Welcome.add(separator_1);
+		
+		JLabel memberlbl = new JLabel("Membership");
+		memberlbl.setBounds(49, 174, 96, 25);
+		Welcome.add(memberlbl);
+		memberlbl.setForeground(Color.BLACK);
+		memberlbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 14));
+		
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setBounds(39, 210, 283, 2);
+		Welcome.add(separator_2);
+		
+		JLabel lblAddress = new JLabel("Address");
+		lblAddress.setForeground(Color.BLACK);
+		lblAddress.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 14));
+		lblAddress.setBounds(50, 223, 96, 25);
+		Welcome.add(lblAddress);
+		
+		JSeparator separator_3 = new JSeparator();
+		separator_3.setBounds(39, 259, 283, 2);
+		Welcome.add(separator_3);
+	
+		JLabel label = new JLabel("Username:");
+		label.setForeground(Color.WHITE);
+		label.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		label.setBounds(10, 11, 66, 14);
+		RP_Panel.add(label);
+		
+		JLabel label_4 = new JLabel("Username:");
+		label_4.setForeground(Color.WHITE);
+		label_4.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		label_4.setBounds(10, 11, 66, 14);
+		panel_2.add(label_4);
+		
+		JLabel label_8 = new JLabel("Username:");
+		label_8.setForeground(Color.WHITE);
+		label_8.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		label_8.setBounds(10, 11, 66, 14);
+		panel_3.add(label_8);
+		
+		JLabel label_14 = new JLabel("Username:");
+		label_14.setForeground(Color.WHITE);
+		label_14.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
+		label_14.setBounds(10, 11, 66, 14);
+		PM_DeletePanel.add(label_14);
+		
+		//======================== END ========================//
+		
+		//======================== NAV BAR ========================//
 		
 		JLabel home = new JLabel(" Home");
 		home.setBackground(Color.DARK_GRAY);
@@ -384,13 +517,9 @@ public class Member extends JFrame {
 		BecomeMemberlbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
 		panel.add(BecomeMemberlbl);
 		
-		/*
-		 * END
-		 */
+		//======================== END ========================//
 		
-		/*
-		 * Reserve Parking
-		 */
+		//======================== RESERVE PARKING SCREEN ========================//
 		
 		JDateChooser RP_DateChooser = new JDateChooser();
 		RP_DateChooser.setBounds(10, 287, 189, 20);
@@ -546,15 +675,9 @@ public class Member extends JFrame {
 		RP_ReserveBtn.setBounds(401, 411, 109, 39);
 		ReserveParking.add(RP_ReserveBtn);
 		
-		/*
-		 * END
-		 */
+		//======================== END ========================//
 		
-		
-		
-		/*
-		 * Payment Methods 
-		 */
+		//======================== PAYMENT METHODS SCREEN ========================//
 		
 		JLabel Pm_Add = new JLabel("   Add a Credit/Debit Card");
 		Pm_Add.addMouseListener(new MouseAdapter() {
@@ -763,14 +886,10 @@ public class Member extends JFrame {
 		Pm_DelBtn.setBounds(38, 248, 334, 37);
 		deleteCard.add(Pm_DelBtn);
 
-		/*
-		 * END
-		 */
+		//======================== END ========================//
 		
 		
-		/*
-		 * Register License
-		 */
+		//======================== REGISTER LICENSE SCREEN ========================//
 		
 		RV_LicensePlateNumber = new JTextField();
 		RV_LicensePlateNumber.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
@@ -875,9 +994,10 @@ public class Member extends JFrame {
 		btnRegister.setBounds(227, 299, 89, 37);
 		RegisterVehicle.add(btnRegister);
 		
-		/*
-		 * END
-		 */
+		//======================== END ========================//
+
+		//======================== ON CREATE INFORMATION ========================//
+
 		String mem = "";
 		try (Connection conn = DriverManager.getConnection(url, user, password)) {
 			
@@ -947,165 +1067,12 @@ public class Member extends JFrame {
 					RP_Licenseplate.addItem(r.getString("license_number"));
 				}
 			}
-			
 				
 		}catch (SQLException ev) {
 			System.out.println(ev.getMessage());
 		}
+
+		//======================== END ========================//
 		
-		
-		/*
-		 * Un-important Labels
-		 */
-		
-		JLabel RP_VehicleDetailslbl = new JLabel("License Plate");
-		RP_VehicleDetailslbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		RP_VehicleDetailslbl.setBounds(10, 51, 129, 28);
-		ReserveParking.add(RP_VehicleDetailslbl);
-		
-		JLabel RP_Paymentlbl = new JLabel("Select Payment Method");
-		RP_Paymentlbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		RP_Paymentlbl.setBounds(10, 123, 189, 28);
-		ReserveParking.add(RP_Paymentlbl);
-		
-		JLabel RP_Lotlbl = new JLabel("Lot");
-		RP_Lotlbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		RP_Lotlbl.setBounds(10, 185, 189, 28);
-		ReserveParking.add(RP_Lotlbl);
-		
-		JLabel RP_Datelbl = new JLabel("Date");
-		RP_Datelbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		RP_Datelbl.setBounds(10, 248, 189, 28);
-		ReserveParking.add(RP_Datelbl);
-		
-		JLabel RP_AmountTimelbl = new JLabel("Amount of Time");
-		RP_AmountTimelbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		RP_AmountTimelbl.setBounds(222, 248, 189, 28);
-		ReserveParking.add(RP_AmountTimelbl);
-		
-		JLabel RP_hrlbl = new JLabel("hrs");
-		RP_hrlbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		RP_hrlbl.setBounds(270, 282, 24, 28);
-		ReserveParking.add(RP_hrlbl);
-		
-		JLabel RP_Minlbl = new JLabel("min");
-		RP_Minlbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		RP_Minlbl.setBounds(350, 282, 24, 28);
-		ReserveParking.add(RP_Minlbl);
-		
-		JLabel Pm_SelectCC = new JLabel("Select Credit/Debit Card");
-		Pm_SelectCC.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		Pm_SelectCC.setBounds(23, 155, 189, 28);
-		editCard.add(Pm_SelectCC);
-		
-		JLabel Pm_editCC = new JLabel("Credit/Debit Card Number");
-		Pm_editCC.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		Pm_editCC.setBounds(23, 236, 189, 28);
-		editCard.add(Pm_editCC);
-		
-		JLabel label_9 = new JLabel("Username:");
-		label_9.setForeground(Color.WHITE);
-		label_9.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		label_9.setBounds(10, 11, 66, 14);
-		Pm_SavePanel.add(label_9);
-		
-		JLabel Pm_CClbl = new JLabel("New Credit/Debit Card Number");
-		Pm_CClbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		Pm_CClbl.setBounds(62, 129, 200, 28);
-		addCard.add(Pm_CClbl);
-		
-		JLabel Pm_Palbl = new JLabel("Payment Address");
-		Pm_Palbl.setHorizontalAlignment(SwingConstants.LEFT);
-		Pm_Palbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		Pm_Palbl.setBounds(62, 199, 200, 28);
-		addCard.add(Pm_Palbl);
-		
-		JLabel label_1 = new JLabel("Username:");
-		label_1.setForeground(Color.WHITE);
-		label_1.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		label_1.setBounds(10, 11, 66, 14);
-		Pm_AddPanel.add(label_1);
-		
-		JLabel Pm_delCC = new JLabel("Select Credit/Debit Card Number");
-		Pm_delCC.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		Pm_delCC.setBounds(38, 139, 189, 28);
-		deleteCard.add(Pm_delCC);
-		
-		JLabel RV_LPNlbl = new JLabel("License Plate Number");
-		RV_LPNlbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		RV_LPNlbl.setBounds(116, 139, 189, 28);
-		RegisterVehicle.add(RV_LPNlbl);
-		
-		JLabel lbl_usr = new JLabel("Username:");
-		lbl_usr.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		lbl_usr.setForeground(Color.WHITE);
-		lbl_usr.setBounds(10, 11, 66, 14);
-		panel.add(lbl_usr);
-		
-		JLabel lblName = new JLabel("Name");
-		lblName.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 14));
-		lblName.setBounds(50, 130, 54, 20);
-		Welcome.add(lblName);
-		
-		JLabel lblId = new JLabel("ID");
-		lblId.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 14));
-		lblId.setBounds(50, 88, 54, 20);
-		Welcome.add(lblId);
-		
-		JSeparator separator = new JSeparator();
-		separator.setBounds(39, 117, 283, 2);
-		Welcome.add(separator);
-		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(39, 161, 283, 2);
-		Welcome.add(separator_1);
-		
-		JLabel memberlbl = new JLabel("Membership");
-		memberlbl.setBounds(49, 174, 96, 25);
-		Welcome.add(memberlbl);
-		memberlbl.setForeground(Color.BLACK);
-		memberlbl.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 14));
-		
-		JSeparator separator_2 = new JSeparator();
-		separator_2.setBounds(39, 210, 283, 2);
-		Welcome.add(separator_2);
-		
-		JLabel lblAddress = new JLabel("Address");
-		lblAddress.setForeground(Color.BLACK);
-		lblAddress.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 14));
-		lblAddress.setBounds(50, 223, 96, 25);
-		Welcome.add(lblAddress);
-		
-		JSeparator separator_3 = new JSeparator();
-		separator_3.setBounds(39, 259, 283, 2);
-		Welcome.add(separator_3);
-	
-		JLabel label = new JLabel("Username:");
-		label.setForeground(Color.WHITE);
-		label.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		label.setBounds(10, 11, 66, 14);
-		RP_Panel.add(label);
-		
-		JLabel label_4 = new JLabel("Username:");
-		label_4.setForeground(Color.WHITE);
-		label_4.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		label_4.setBounds(10, 11, 66, 14);
-		panel_2.add(label_4);
-		
-		JLabel label_8 = new JLabel("Username:");
-		label_8.setForeground(Color.WHITE);
-		label_8.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		label_8.setBounds(10, 11, 66, 14);
-		panel_3.add(label_8);
-		
-		JLabel label_14 = new JLabel("Username:");
-		label_14.setForeground(Color.WHITE);
-		label_14.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-		label_14.setBounds(10, 11, 66, 14);
-		PM_DeletePanel.add(label_14);
-		
-		/*
-		 * END
-		 */
 	}
 }
