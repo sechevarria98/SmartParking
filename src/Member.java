@@ -90,6 +90,8 @@ public class Member extends JFrame {
 		layeredPane.setBounds(184, 0, 520, 461);
 		contentPane.add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
+
+		onCreateProcess();
 		
 		//======================== PANELS ========================//
 		
@@ -482,34 +484,7 @@ public class Member extends JFrame {
 		BecomeMemberlbl.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				try (Connection conn = DriverManager.getConnection(url, user, password)) {
-					
-					String query = 	"SELECT * FROM customer, userLogin\r\n" + 
-									"WHERE customer.id = userLogin.id\r\n" + 
-									"AND username = '" + userName + "'";
-					Statement s = conn.createStatement();
-					ResultSet r = s.executeQuery(query);
-					
-					while(r.next()) {
-						int id = r.getInt("id");
-						
-						String query_2 = "UPDATE userLogin SET mem_type = 'Member'";
-						Statement stmt = conn.createStatement();
-						stmt.executeUpdate(query_2);
-						
-						String query_1 = "INSERT INTO member(id) Values(" + id + ")";
-						
-						JOptionPane.showMessageDialog(null, "You are now a member log back in");
-						
-						
-						Statement st = conn.createStatement();
-						st.executeQuery(query_1);
-						
-					}
-					
-				}catch (SQLException ev) {
-					System.out.println(ev.getMessage());
-				}
+				becomeMember();
 			}
 		});
 		BecomeMemberlbl.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -584,89 +559,14 @@ public class Member extends JFrame {
 		JButton RP_ReserveBtn = new JButton("Reserve");
 		RP_ReserveBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try (Connection conn = DriverManager.getConnection(url, user, password)) {
-					
-					
-					String query = "";
-					String query_1 = "";
-					
-					if (RP_Lot.getSelectedItem().toString().equals("Parking Lot A")) {
-						
-						query_1 = "SELECT * FROM parkinglotA";
-						
-						Statement st = conn.createStatement();
-						ResultSet r = st.executeQuery(query_1);
-						
-						while(r.next()) {
-							int parkingspace = r.getInt("parkingspace");
-							if (parkingspace < 5) {
-								query = "UPDATE ParkingLotA\r\n" + 
-										"SET parkingspace = parkingspace + 1,\r\n" + 
-										"	license_number = '" + RP_Licenseplate.getSelectedItem().toString() + "',\r\n" + 
-										"	reservation_date = '" + RP_DateChooser.getDate().toString() + "',\r\n" + 
-										"	reservation_hour = " + RP_hour.getText() + ",\r\n" + 
-										"	reservation_minutes = " + RP_Min.getText() + "";
-								JOptionPane.showMessageDialog(null, "Parking Space reserved");
-							}
-							else {
-								JOptionPane.showMessageDialog(null, "Parking Lot A is full");
-							}
-						}
-						
-					}
-					else if (RP_Lot.getSelectedItem().toString().equals("Parking Lot B")) {
-						query_1 = "SELECT * FROM parkinglotB";
-						
-						Statement st = conn.createStatement();
-						ResultSet r = st.executeQuery(query_1);
-						
-						while(r.next()) {
-							int parkingspace = r.getInt("parkingspace");
-							if (parkingspace < 5) {
-								query = "UPDATE ParkingLotB\r\n" + 
-										"SET parkingspace = parkingspace + 1,\r\n" + 
-										"	license_number = '" + RP_Licenseplate.getSelectedItem().toString() + "',\r\n" + 
-										"	reservation_date = '" + RP_DateChooser.getDate().toString() + "',\r\n" + 
-										"	reservation_hour = " + RP_hour.getText() + ",\r\n" + 
-										"	reservation_minutes = " + RP_Min.getText() + "";
-								JOptionPane.showMessageDialog(null, "Parking Space reserved");
 
-							}
-							else {
-								JOptionPane.showMessageDialog(null, "Parking Lot B is full");
-							}
-						}
-					}
-					else if (RP_Lot.getSelectedItem().toString().equals("Parking Lot C")) {
-						query_1 = "SELECT * FROM parkinglotC";
-						
-						Statement st = conn.createStatement();
-						ResultSet r = st.executeQuery(query_1);
-						
-						while(r.next()) {
-							int parkingspace = r.getInt("parkingspace");
-							if (parkingspace < 5) {
-								query = "UPDATE ParkingLotC\r\n" + 
-										"SET parkingspace = parkingspace + 1,\r\n" + 
-										"	license_number = '" + RP_Licenseplate.getSelectedItem().toString() + "',\r\n" + 
-										"	reservation_date = '" + RP_DateChooser.getDate().toString() + "',\r\n" + 
-										"	reservation_hour = " + RP_hour.getText() + ",\r\n" + 
-										"	reservation_minutes = " + RP_Min.getText() + "";
-								JOptionPane.showMessageDialog(null, "Parking Space reserved");
-							}
-							else {
-								JOptionPane.showMessageDialog(null, "Parking Lot C is full");
-							}
-						}
-					}	
-					
-					Statement s = conn.createStatement();
-					s.executeUpdate(query);
-					
-					
-				}catch (SQLException ev) {
-					System.out.println(ev.getMessage());
-				}
+				String temp_license_number = RP_Licenseplate.getSelectedItem.toString();
+				String temp_date = RP_DateChooser.getDate.toString();
+				int temp_hour = RP_hour.getText();
+				int temp_min = RP_Min.getText();
+				String temp_lot = RP_Lot.getSelectedItem().toString();
+
+				revserveSpace(temp_license_number, temp_date, temp_hour, temp_min, temp_lot);
 				
 			}
 		});
@@ -759,29 +659,11 @@ public class Member extends JFrame {
 		JButton Pm_SaveBtn = new JButton("Save");
 		Pm_SaveBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try (Connection conn = DriverManager.getConnection(url, user, password)) {
-					
-					String query = 	"SELECT * FROM customer, userLogin\r\n" + 
-									"WHERE customer.id = userLogin.id\r\n" + 
-									"AND username = '" + userName + "'";
-					Statement s = conn.createStatement();
-					ResultSet r = s.executeQuery(query);
-					
-					while(r.next()) {
-						String query_1 = 	"Update Customer Set credit_card = " + Pm_edit.getText() + "\r\n" + 
-											"WHERE credit_card = " + Pm_ChooseCC.getSelectedItem() + "\r\n" + "";
-						
-						Statement st = conn.createStatement();
-						st.executeUpdate(query_1);
-						
-						
-						Pm_edit.setText("");
-						JOptionPane.showMessageDialog(null, "Credit/Debit Card has been edited");
-					}
-					
-				}catch (SQLException ev) {
-					System.out.println(ev.getMessage());
-				}
+
+				String tmp_credit_card = Pm_edit.getText();
+				String tmp_update_card = Pm_ChooseCC.getSelectedItem.toString;
+
+				updateCard(tmp_credit_card, tmp_update_card);
 			}
 		});
 		Pm_SaveBtn.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 11));
@@ -815,32 +697,9 @@ public class Member extends JFrame {
 		JButton Pm_addBtn = new JButton("Add");
 		Pm_addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try (Connection conn = DriverManager.getConnection(url, user, password)) {
-					
-					String query = 	"SELECT * FROM customer, userLogin\r\n" + 
-									"WHERE customer.id = userLogin.id\r\n" + 
-									"AND username = '" + userName + "'";
-					Statement s = conn.createStatement();
-					ResultSet r = s.executeQuery(query);
-					
-					while(r.next()) {
-						int id = r.getInt("id");
-						String LN = r.getString("license_number");
-						String query_1 = 	"INSERT INTO customer (id, credit_card, payment_address, license_number)\r\n" + 
-											"VALUES(" + id + ", " +  Pm_newCC.getText()  + ", '" + Pm_newPA.getText() + "', '" + LN +"')";
-						
-						Pm_newCC.setText("");
-						Pm_newPA.setText("");
-						JOptionPane.showMessageDialog(null, "Credit/Debit Card has been added");
-						
-						Statement st = conn.createStatement();
-						st.executeQuery(query_1);
-						
-					}
-					
-				}catch (SQLException ev) {
-					System.out.println(ev.getMessage());
-				}
+				String new_credit_card = Pm_newCC.getText();
+				String new_payment_address = Pm_newPA.getText();
+				addcreditcard(new_credit_card, new_payment_address);
 			}
 		});
 		Pm_addBtn.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 11));
@@ -857,28 +716,8 @@ public class Member extends JFrame {
 		JButton Pm_DelBtn = new JButton("Delete");
 		Pm_DelBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try (Connection conn = DriverManager.getConnection(url, user, password)) {
-					
-					String query = 	"SELECT * FROM customer, userLogin\r\n" + 
-									"WHERE customer.id = userLogin.id\r\n" + 
-									"AND username = '" + userName + "'";
-					Statement s = conn.createStatement();
-					ResultSet r = s.executeQuery(query);
-					
-					while(r.next()) {
-						String LN = r.getString("license_number");
-						String query_1 = 	"DELETE FROM customer\r\n" + 
-											"WHERE credit_card = " + Pm_ChooseDelCC.getSelectedItem();
-						
-						JOptionPane.showMessageDialog(null, "Credit/Debit Card has been deleted");
-						Statement st = conn.createStatement();
-						st.executeQuery(query_1);
-					
-					}
-					
-				}catch (SQLException ev) {
-					System.out.println(ev.getMessage());
-				}
+				String chosen_card = Pm_ChooseDelCC.getSelectedItem().toString();
+				deleteChosenCard(chosen_card);
 			}
 		});
 		Pm_DelBtn.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 11));
@@ -887,7 +726,6 @@ public class Member extends JFrame {
 		deleteCard.add(Pm_DelBtn);
 
 		//======================== END ========================//
-		
 		
 		//======================== REGISTER LICENSE SCREEN ========================//
 		
@@ -916,77 +754,11 @@ public class Member extends JFrame {
 		lblToAddA.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
 		RegisterVehicle.add(lblToAddA);
 		
-		try (Connection conn = DriverManager.getConnection(url, user, password)) {
-			
-			String query = "SELECT * FROM userLogin WHERE username = '" + userName + "'";
-			Statement s = conn.createStatement();
-			ResultSet r = s.executeQuery(query);
-			while(r.next()) {
-				String membership = r.getString("mem_type");
-				if (membership.equals("Non-member")) {
-					lblUpgradingToMember.setBounds(116, 218, 200, 32);
-					lblToAddA.setBounds(116, 249, 200, 32);
-					BecomeMemberlbl.setBounds(372, 11, 112, 14);
-				}
-				else if (membership.equals("Member")) {
-					comboBox.setBounds(116, 229, 200, 22);
-					lblLicenseType.setBounds(116, 199, 189, 28);
-				}
-			}
-			
-		}catch (SQLException ev) {
-			System.out.println(ev.getMessage());
-		}
-		
 		JButton btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try (Connection conn = DriverManager.getConnection(url, user, password)) {
-					
-					String query = "SELECT * FROM userLogin WHERE username = '" + userName + "'";
-					Statement s = conn.createStatement();
-					ResultSet r = s.executeQuery(query);
-					while(r.next()) {
-						int id = r.getInt("id");
-						String membership = r.getString("mem_type");
-						if (membership.equals("Non-member")) {
-							String query_3 = "UPDATE customer SET license_number = '" + RV_LicensePlateNumber.getText() + "'\r\n" + 
-									"WHERE id = " + id + "";
-
-							Statement stmt = conn.createStatement();
-							stmt.executeUpdate(query_3);
-							
-							JOptionPane.showMessageDialog(null, "Permanent Plate added");
-
-						}
-						else if (membership.equals("Member")) {
-							
-							if (comboBox.getSelectedItem().toString().equals("Temporary")) {
-								String query_1 = "UPDATE member SET tempplate1 = '" + RV_LicensePlateNumber.getText() + "'\r\n" + 
-											"WHERE id = " + id + "";
-								
-								Statement st = conn.createStatement();
-								st.executeUpdate(query_1);
-								
-								JOptionPane.showMessageDialog(null, "Temp Plate added");
-							}
-							else if (comboBox.getSelectedItem().toString().equals("Permanent")) {
-								String query_2 = "UPDATE customer SET license_number = '" + RV_LicensePlateNumber.getText() + "'\r\n" + 
-										"WHERE id = " + id + "";
-
-								Statement stmt = conn.createStatement();
-								stmt.executeUpdate(query_2);
-								
-								JOptionPane.showMessageDialog(null, "Permanent Plate added");
-
-							}
-							
-						}
-					}
-					
-				}catch (SQLException ev) {
-					System.out.println(ev.getMessage());
-				}
+				String temp_license_number = RV_LicensePlateNumber.getText.toString();
+				registerLicenseNumber(temp_license_number);
 			}
 		});
 		btnRegister.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 11));
@@ -1019,9 +791,9 @@ public class Member extends JFrame {
 				Pm_ChooseCC.addItem(r.getLong("credit_card"));
 			}
 			
+			differentiateMembership();
+
 		}catch (SQLException e) {
-
-
 			System.out.println(e.getMessage());
 		}		
 	}
@@ -1074,7 +846,281 @@ public class Member extends JFrame {
 					RP_Licenseplate.addItem(r.getString("license_number"));
 				}
 			}
+
+			creationProccess();
 				
+		}catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	private void becomeMember()
+	{
+		try (Connection conn = DriverManager.getConnection(url, user, password)) {
+					
+			String select_all_query = "SELECT * FROM customer, userLogin\r\n" + 
+							"WHERE customer.id = userLogin.id\r\n" + 
+							"AND username = '" + userName + "'";
+
+			Statement s = conn.createStatement();
+			ResultSet r = s.executeQuery(select_all_query);
+			
+			while(r.next()) {
+				int id = r.getInt("id");
+				
+				String update_query = "UPDATE userLogin SET mem_type = 'Member'";
+				Statement stmt = conn.createStatement();
+				stmt.executeUpdate(update_query);
+				
+				String insert_query = "INSERT INTO member(id) Values(" + id + ")";	
+				JOptionPane.showMessageDialog(null, "Thank You, " + userName + " for becoming a member");
+				
+				Statement st = conn.createStatement();
+				st.executeQuery(insert_query);
+				
+			}
+			
+		}catch (SQLException ev) {
+			System.out.println(ev.getMessage());
+		}
+	}
+
+	private void revserveSpace(String tmp_license, String tmp_date, String tmp_hour, String tmp_min, String tmp_lot)
+	{
+		try (Connection conn = DriverManager.getConnection(url, user, password)) {
+					
+			String update_query = null;
+			String select_query = null;
+			if (tmp_lot.equals("Parking Lot A")) {
+				
+				select_query = "SELECT * FROM parkinglotA";
+				
+				Statement st = conn.createStatement();
+				ResultSet r = st.executeQuery(select_query);
+				
+				while(r.next()) {
+					int parkingspace = r.getInt("parkingspace");
+					if (parkingspace < 5) {
+						update_query = "UPDATE ParkingLotA\r\n" + 
+								"SET parkingspace = parkingspace + 1,\r\n" + 
+								"	license_number = '" + tmp_license + "',\r\n" + 
+								"	reservation_date = '" + tmp_date + "',\r\n" + 
+								"	reservation_hour = " + tmp_hour + ",\r\n" + 
+								"	reservation_minutes = " + tmp_min + "";
+						JOptionPane.showMessageDialog(null, "Parking Space reserved");
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Parking Lot A is full");
+					}
+				}
+				
+			}
+			else if (tmp_lot.equals("Parking Lot B")) {
+				select_query = "SELECT * FROM parkinglotB";
+				
+				Statement st = conn.createStatement();
+				ResultSet r = st.executeQuery(select_query);
+				
+				while(r.next()) {
+					int parkingspace = r.getInt("parkingspace");
+					if (parkingspace < 5) {
+						update_query = "UPDATE ParkingLotB\r\n" + 
+								"SET parkingspace = parkingspace + 1,\r\n" + 
+								"	license_number = '" + tmp_license + "',\r\n" + 
+								"	reservation_date = '" + tmp_date + "',\r\n" + 
+								"	reservation_hour = " + tmp_hour + ",\r\n" + 
+								"	reservation_minutes = " + tmp_min + "";
+						JOptionPane.showMessageDialog(null, "Parking Space reserved");
+
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Parking Lot B is full");
+					}
+				}
+			}
+			else if (tmp_lot.equals("Parking Lot C")) {
+				select_query = "SELECT * FROM parkinglotC";
+				
+				Statement st = conn.createStatement();
+				ResultSet r = st.executeQuery(select_query);
+				
+				while(r.next()) {
+					int parkingspace = r.getInt("parkingspace");
+					if (parkingspace < 5) {
+						update_query = "UPDATE ParkingLotC\r\n" + 
+								"SET parkingspace = parkingspace + 1,\r\n" + 
+								"	license_number = '" + tmp_license + "',\r\n" + 
+								"	reservation_date = '" + tmp_date + "',\r\n" + 
+								"	reservation_hour = " + tmp_hour + ",\r\n" + 
+								"	reservation_minutes = " + tmp_min + "";
+						JOptionPane.showMessageDialog(null, "Parking Space reserved");
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Parking Lot C is full");
+					}
+				}
+			}	
+			
+			Statement s = conn.createStatement();
+			s.executeUpdateupdate_query);
+			
+			
+		}catch (SQLException ev) {
+			System.out.println(ev.getMessage());
+		}
+	}
+
+	private void updateCard(String tmp_cc, String which_card)
+	{
+		try (Connection conn = DriverManager.getConnection(url, user, password)) {
+					
+			String query = 	"SELECT * FROM customer, userLogin\r\n" + 
+							"WHERE customer.id = userLogin.id\r\n" + 
+							"AND username = '" + userName + "'";
+			Statement s = conn.createStatement();
+			ResultSet r = s.executeQuery(query);
+			
+			while(r.next()) {
+				String query_1 = 	"Update Customer Set credit_card = " + temp_cc + "\r\n" + 
+									"WHERE credit_card = " + which_card + "\r\n" + "";
+				
+				Statement st = conn.createStatement();
+				st.executeUpdate(query_1);
+				
+				
+				Pm_edit.setText("");
+				JOptionPane.showMessageDialog(null, "Credit/Debit Card has been edited");
+			}
+			
+		}catch (SQLException ev) {
+			System.out.println(ev.getMessage());
+		}
+	}
+
+	private void addcreditcard(String tmp_card, String tmp_payment_address)
+	{
+		try (Connection conn = DriverManager.getConnection(url, user, password)) {
+					
+			String query = 	"SELECT * FROM customer, userLogin\r\n" + 
+							"WHERE customer.id = userLogin.id\r\n" + 
+							"AND username = '" + userName + "'";
+			Statement s = conn.createStatement();
+			ResultSet r = s.executeQuery(query);
+			
+			while(r.next()) {
+				int id = r.getInt("id");
+				String license = r.getString("license_number");
+				String query_1 = "INSERT INTO customer (id, credit_card, payment_address, license_number)\r\n" + 
+									"VALUES(" + id + ", " +  tmp_card  + ", '" + tmp_payment_address + "', '" + license +"')";
+				
+				Pm_newCC.setText("");
+				Pm_newPA.setText("");
+				JOptionPane.showMessageDialog(null, "Credit/Debit Card has been added");
+				
+				Statement st = conn.createStatement();
+				st.executeQuery(query_1);
+				
+			}
+			
+		}catch (SQLException ev) {
+			System.out.println(ev.getMessage());
+		}
+	}
+
+	private void deleteChosenCard(String tmp_card)
+	{
+		try (Connection conn = DriverManager.getConnection(url, user, password)) {
+					
+			String query = 	"SELECT * FROM customer, userLogin\r\n" + 
+							"WHERE customer.id = userLogin.id\r\n" + 
+							"AND username = '" + userName + "'";
+			Statement s = conn.createStatement();
+			ResultSet r = s.executeQuery(query);
+			
+			while(r.next()) {
+				String LN = r.getString("license_number");
+				String query_1 = 	"DELETE FROM customer\r\n" + 
+									"WHERE credit_card = " + tmp_card;
+				
+				JOptionPane.showMessageDialog(null, "Credit/Debit Card has been deleted");
+				Statement st = conn.createStatement();
+				st.executeQuery(query_1);
+			
+			}
+			
+		}catch (SQLException ev) {
+			System.out.println(ev.getMessage());
+		}
+	}
+
+	private void creationProccess()
+		try (Connection conn = DriverManager.getConnection(url, user, password)) {
+			
+			String query = "SELECT * FROM userLogin WHERE username = '" + userName + "'";
+			Statement s = conn.createStatement();
+			ResultSet r = s.executeQuery(query);
+			while(r.next()) {
+				String membership = r.getString("mem_type");
+				if (membership.equals("Non-member")) {
+					lblUpgradingToMember.setBounds(116, 218, 200, 32);
+					lblToAddA.setBounds(116, 249, 200, 32);
+					BecomeMemberlbl.setBounds(372, 11, 112, 14);
+				}
+				else if (membership.equals("Member")) {
+					comboBox.setBounds(116, 229, 200, 22);
+					lblLicenseType.setBounds(116, 199, 189, 28);
+				}
+			}
+			
+		}catch (SQLException ev) {
+			System.out.println(ev.getMessage());
+		}
+	}
+
+	private void registerLicenseNumber(String tmp_license) {
+		try (Connection conn = DriverManager.getConnection(url, user, password)) {
+					
+			String query = "SELECT * FROM userLogin WHERE username = '" + userName + "'";
+			Statement s = conn.createStatement();
+			ResultSet r = s.executeQuery(query);
+			while(r.next()) {
+				int id = r.getInt("id");
+				String membership = r.getString("mem_type");
+				if (membership.equals("Non-member")) {
+					String query_3 = "UPDATE customer SET license_number = '" + tmp_license + "'\r\n" + 
+							"WHERE id = " + id + "";
+
+					Statement stmt = conn.createStatement();
+					stmt.executeUpdate(query_3);
+					
+					JOptionPane.showMessageDialog(null, "Permanent Plate added");
+
+				}
+				else if (membership.equals("Member")) {
+					
+					if (comboBox.getSelectedItem().toString().equals("Temporary")) {
+						String query_1 = "UPDATE member SET tempplate1 = '" + tmp_license + "'\r\n" + 
+									"WHERE id = " + id + "";
+						
+						Statement st = conn.createStatement();
+						st.executeUpdate(query_1);
+						
+						JOptionPane.showMessageDialog(null, "Temp Plate added");
+					}
+					else if (comboBox.getSelectedItem().toString().equals("Permanent")) {
+						String query_2 = "UPDATE customer SET license_number = '" + tmp_license + "'\r\n" + 
+								"WHERE id = " + id + "";
+
+						Statement stmt = conn.createStatement();
+						stmt.executeUpdate(query_2);
+						
+						JOptionPane.showMessageDialog(null, "Permanent Plate added");
+
+					}
+					
+				}
+			}
+			
 		}catch (SQLException ev) {
 			System.out.println(ev.getMessage());
 		}
